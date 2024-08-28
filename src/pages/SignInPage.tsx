@@ -17,7 +17,7 @@ function SignInPage() {
           </div>
           <NavLink
             to={`${import.meta.env.VITE_BASE_URL}/google/redirect`}
-            className="flex gap-3 justify-center items-center w-full border-2
+            className="btn-default flex gap-3 justify-center items-center w-full border-2
               h-[40px] sm:h-[48px] rounded-[6px] sm:rounded-[10px] px-[40px] sm:px-[60px]"
           >
             <GoogleIcon />

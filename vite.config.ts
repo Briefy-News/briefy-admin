@@ -11,14 +11,12 @@ export default defineConfig(({ mode }) => {
       __APP_ENV__: JSON.stringify(env.APP_ENV),
     },
     plugins: [react()],
-    base: '/user',
     resolve: {
       alias: {
         src: path.resolve(__dirname, './src'),
       },
     },
     server: {
-      historyApiFallback: true,
       proxy: {
         '/api': {
           target: `${env.BASE_URL}`,

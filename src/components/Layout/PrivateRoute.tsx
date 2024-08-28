@@ -1,17 +1,24 @@
 import { useEffect } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { getCookie, setCookie } from 'src/utils/cookie';
 import Aside from 'src/components/common/Aside';
-import { extractCookieValue, getCookie, removeBrowserToken, setCookie } from 'src/utils/cookie';
 
 function PrivateRoute() {
+  const navigation = useNavigate();
+  const { search } = useLocation();
+  const access = getCookie('access');
+
   useEffect(() => {
-    const accessToken = extractCookieValue('access_token');
+    if (access) {
+      navigation('/user', { replace: true });
+      return;
+    }
+
+    const accessToken = new URLSearchParams(search).get('accessToken');
     if (!accessToken) return;
     setCookie('access', decodeURIComponent(accessToken), { path: '/', secure: true, sameSite: 'strict' });
-    removeBrowserToken('access_token');
+    navigation('/user', { replace: true });
   }, []);
-  const access = getCookie('access');
-  console.log('access:', access);
 
   return (
     <>

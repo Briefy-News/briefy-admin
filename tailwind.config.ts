@@ -41,7 +41,7 @@ export default {
         },
         '.btn-default:hover': {
           opacity: 0.8,
-        },
+        }
       };
       addUtilities(newUtilities, ['responsive', 'hover', 'focus']);
     },

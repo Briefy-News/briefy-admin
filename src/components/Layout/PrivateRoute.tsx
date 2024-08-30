@@ -9,14 +9,11 @@ function PrivateRoute() {
   const access = getCookie('access');
 
   useEffect(() => {
-    if (access) {
-      navigation('/user', { replace: true });
-      return;
-    }
-
+    if (access) navigation('/user', { replace: true });
     const accessToken = new URLSearchParams(search).get('accessToken');
     if (!accessToken) return;
-    setCookie('access', decodeURIComponent(accessToken), { path: '/', secure: true, sameSite: 'strict' });
+
+    setCookie('access', `${accessToken}`, { path: '/', secure: true, sameSite: 'strict' });
     navigation('/user', { replace: true });
   }, []);
 

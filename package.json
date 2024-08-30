@@ -15,14 +15,17 @@
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^5.16.7",
     "@mui/x-tree-view": "^7.14.0",
+    "@reactuses/core": "^5.0.21",
     "@tanstack/react-query": "^5.52.1",
     "@tanstack/react-query-devtools": "^5.52.1",
     "axios": "^1.7.5",
+    "dayjs": "^1.11.13",
     "framer-motion": "^11.3.30",
     "pretendard": "^1.3.9",
     "react": "^18.3.1",
     "react-cookie": "^7.2.0",
     "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.26.1"
   },
   "devDependencies": {

@@ -21,3 +21,5 @@ export interface User {
   createAt: Date;
   updateAt: Date;
 }
+
+export type FetchUsers = { data: User[]; total: number } | undefined;

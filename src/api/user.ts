@@ -20,13 +20,18 @@ export const getOne = async () => {
   return res.data;
 };
 
+export const deleteOne = async (id: number) => {
+  const res = await instance.delete(`/api/user/${id}`);
+  return res.data;
+};
+
 export interface ChangeRole {
   id: number;
   role: Roles;
 }
 
 export const changeRole = async ({ id, role }: ChangeRole) => {
-  const query = new URLSearchParams({ role });
-  const res = await instance.post(`/api/${id}/change-role?${query}`);
+  const updateRole = role === Roles.ADMIN ? Roles.USER : Roles.ADMIN;
+  const res = await instance.patch(`/api/user/${id}/change-role`, { role: updateRole });
   return res.data;
 };

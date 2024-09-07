@@ -22,4 +22,4 @@ export interface User {
   updateAt: Date;
 }
 
-export type FetchUsers = { data: User[]; total: number } | undefined;
+export type FetchUsers = { data: User[]; total: number };

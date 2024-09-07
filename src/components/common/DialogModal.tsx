@@ -23,7 +23,7 @@ function DialogModal({ isOpen, setIsOpen, title, description, onConfirm } : Dial
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.25 }}
           exit={{ opacity: 0 }}
           onClick={() => setIsOpen(false)}
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"

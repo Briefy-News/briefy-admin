@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import PrivateRoute from 'src/components/Layout/PrivateRoute';
 import UserPage from 'src/pages/UserPage';
 import SignInPage from 'src/pages/SignInPage';
-import NewsletterPage from 'src/pages/NewsletterPage';
+import NewsletterCreatePage from 'src/pages/NewsletterCreatePage';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/" element={<PrivateRoute />}>
           <Route path="/user" element={<UserPage />} />
-          <Route path="/newsletter" element={<NewsletterPage />} />
+          <Route path="/newsletter/create" element={<NewsletterCreatePage />} />
         </Route>
       </Routes>
     </>

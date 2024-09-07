@@ -16,6 +16,7 @@
     "@mui/material": "^5.16.7",
     "@mui/x-tree-view": "^7.14.0",
     "@reactuses/core": "^5.0.21",
+    "@supabase/supabase-js": "^2.45.3",
     "@tanstack/react-query": "^5.52.1",
     "@tanstack/react-query-devtools": "^5.52.1",
     "axios": "^1.7.5",

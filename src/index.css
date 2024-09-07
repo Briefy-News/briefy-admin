@@ -6,3 +6,8 @@ body {
   background-color: #FBFBFD;
   @apply font-pretendard
 }
+
+.tree-item-focus-none {
+  outline: none !important; 
+  box-shadow: none !important;
+}

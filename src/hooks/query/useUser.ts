@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteOne, changeRole, ChangeRole, getAll } from 'src/api/user';
-import useToast from 'src/hook/useToast';
+import useToast from 'src/hooks/useToast';
 import { FetchUsers, roleName, Roles } from 'src/types/user';
 
 export interface QueryKey {
@@ -9,7 +9,7 @@ export interface QueryKey {
 }
 
 export const useGetUsers = ({ page, take = 20 } : QueryKey) => {
-  const { data, isError, isLoading } = useQuery({
+  const { data, isError, isLoading } = useQuery<FetchUsers>({
     queryKey: ['users', page, take],
     queryFn: () => getAll({ page, take }),
   });
@@ -25,7 +25,7 @@ export const useChangeRole = ({ page, take }: QueryKey) => {
     mutationFn: ({ id, role }: ChangeRole) => changeRole({ id, role }),
     onSuccess: (res) => {
       successToast(`${roleName[res.role as Roles]}로 변경되었습니다.`);
-      queryClient.setQueryData(['users', page + 1, take], (prev: FetchUsers) => {
+      queryClient.setQueryData(['users', page + 1, take], (prev: FetchUsers | undefined) => {
         const update = prev?.data.map((user) => {
           if (user.id === res.id) return { ...user, role: res.role };
           return user;
@@ -57,7 +57,7 @@ export const useDeleteUser = ({ page, take }: QueryKey) => {
       });
     },
     onError: () => {
-      errorToast('유저 삭제 요청이 실패했습니다. 다시 시도해 주세요.');
+      errorToast('유저 삭제 요청에 실패했습니다. 다시 시도해 주세요.');
     },
   });
 

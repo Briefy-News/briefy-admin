@@ -22,7 +22,7 @@ instance.interceptors.request.use(
 
 const tokenAndRequestUpdate = async (config: AxiosRequestConfig) => {
   const res = await instance.get('/auth/token');
-  const newAccessToken = res.headers.authorization;
+  const newAccessToken = await res.headers['authorization'];
   if (!newAccessToken) return;
 
   const decodeNewAccess = decodeURIComponent(newAccessToken);
@@ -36,13 +36,14 @@ instance.interceptors.response.use(
   (res) => res,
   async (error) => {
     const { config, response: { status, data } } = error;
+    const errorMsg = data.message;
 
-    if (status === 401 && !config._retry && data?.message === '토큰이 만료됐거나 잘못된 토큰입니다.') {
+    if (status === 401 && !config._retry && errorMsg === '토큰이 만료됐거나 잘못된 토큰입니다.') {
       config._retry = true;
       return tokenAndRequestUpdate(config);
     }
 
-    if (status === 401 && config._retry && data?.message === '리프레시 토큰이 만료되었습니다.') {
+    if (status === 401 && config._retry && errorMsg === '리프레시 토큰이 만료되었습니다.') {
       removeCookie('access');
       alert('로그인이 만료되었습니다. 다시 로그인해주세요.');
       window.location.href = '/signin';

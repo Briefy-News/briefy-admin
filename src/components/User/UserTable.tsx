@@ -6,8 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useChangeRole, useDeleteUser, useGetUsers } from 'src/hook/query';
-import { Navigate } from 'react-router-dom';
+import { useChangeRole, useDeleteUser, useGetUsers } from 'src/hooks/query';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import { roleName, Roles, User } from 'src/types/user';
@@ -37,7 +36,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 function UserTable() {
   const [page, setPage] = useState(0);
   const [take, setTake] = useState(10);
-  const { data, isLoading, isError } = useGetUsers({ page: page + 1, take });
+  const { data, isLoading } = useGetUsers({ page: page + 1, take });
   const { deleteUserMutation } = useDeleteUser({ page, take });
   const { changeRoleMutation } = useChangeRole({ page, take });
 
@@ -64,12 +63,11 @@ function UserTable() {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (isError) return <Navigate to="/signin" />;
 
   return (
     <>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <TableContainer sx={{ minWidth: 700, maxWidth: 800, width: '100%' }} component={Paper}>
+        <Table sx={{ minWidth: 700, maxWidth: 800, width: '100%' }} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>ID</StyledTableCell>
@@ -81,7 +79,7 @@ function UserTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.data.map((row: User) => (
+            {data?.data.map((row: User) => (
               <StyledTableRow key={row.name}>
                 <StyledTableCell component="th" scope="row">{row.id}</StyledTableCell>
                 <StyledTableCell align="center">{row.name}</StyledTableCell>
@@ -94,7 +92,7 @@ function UserTable() {
           </TableBody>
         </Table>
       </TableContainer>
-      {data.total > take && (
+      {data?.total && (data?.total > take) && (
         <TablePagination
           rowsPerPageOptions={[10, 20, 50, 100]}
           component="div"

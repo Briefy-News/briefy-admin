@@ -11,5 +11,6 @@ module.exports = {
     'react/jsx-no-duplicate-props': 'off',
     'no-plusplus': 'off',
     'no-underscore-dangle': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
   },
 };

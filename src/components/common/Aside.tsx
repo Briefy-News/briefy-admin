@@ -11,16 +11,19 @@ function Aside() {
   const [selectedItem, setSelectedItem] = useState('');
 
   useEffect(() => {
-    const paths = pathname.split('/');
-    setSelectedItem(paths[1]);
+    setSelectedItem(pathname);
   }, [pathname]);
 
   const selectedStyle = { color: '#5569FF', backgroundColor: '#E9F2FC' };
   const defaultStyle = { color: '#6E6D73' };
 
   const onItemFocus = (_: SyntheticEvent<Element, Event> | null, itemId: string) => {
-    setSelectedItem(itemId);
-    navigate(`/${itemId}`);
+    let temp = itemId;
+    if (itemId.startsWith('/tab')) {
+      temp = itemId.split('-')[1];
+    }
+    setSelectedItem(temp);
+    navigate(temp);
   };
 
   return (
@@ -32,8 +35,11 @@ function Aside() {
         </p>
       </div>
       <SimpleTreeView onItemFocus={onItemFocus}>
-        <TreeItem className="focus-none" itemId="user" label="User" sx={{ color: selectedItem === 'user' ? selectedStyle : defaultStyle }} />
-        <TreeItem className="focus-none" itemId="newsletter" label="Newsletter" sx={{ color: selectedItem === 'newsletter' ? selectedStyle : defaultStyle }} />
+        <TreeItem className="focus-none" itemId="/user" label="User" sx={{ color: selectedItem === '/user' ? selectedStyle : defaultStyle }} />
+        <TreeItem className="focus-none" itemId="/tab-/newsletter/create" label="Newsletter" sx={{ color: selectedItem.startsWith('/newsletter') ? selectedStyle : defaultStyle }}>
+          <TreeItem className="focus-none" itemId="/newsletter/create" label="Newsletter 등록" sx={{ color: selectedItem === '/newsletter/create' ? selectedStyle : defaultStyle }} />
+          {/* <TreeItem className="focus-none" itemId="/newsletters" label="Newsletter 모음" sx={{ color: selectedItem === '/newsletter/delete' ? selectedStyle : defaultStyle }} /> */}
+        </TreeItem>
       </SimpleTreeView>
     </Box>
   );
